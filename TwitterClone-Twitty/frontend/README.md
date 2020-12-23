@@ -12,7 +12,9 @@ In current state of project only front-end part is implemented.
  - Axios
  - Material UI
 
-While back-end of this project is not implemented, there is json-server in use as database for testing application's functionality.
+While back-end of this project is not implemented, there is json-server in use as mock of database for testing application's functionality.
+
+You can find list of used modules in "package.json" file.
 
 ## Currently implemented
 
@@ -38,7 +40,14 @@ You have to clone this repository locally.
 
 ### React application
 
-Run React application by executing following command in projects "front-end" directory:
+Install all required modules by running following command in projects "frontend" directory:
+
+```
+npm install
+```
+
+
+Run React application by executing following command in projects "frontend" directory:
 
 ```
 npm start
@@ -46,7 +55,7 @@ npm start
 
 ### Json-server
 
-You also have to run json-server by executing following command in projects "front-end" directory:
+You also have to run json-server by executing following command in projects "frontend" directory:
 
 ```
 npx json-server --watch public/db.json --port 3001
@@ -54,7 +63,7 @@ npx json-server --watch public/db.json --port 3001
 
 ### Application opening
 
-The application should open automatically in you default browser, otherwise open [http://localhost:3000](http://localhost:3000) in your browser.
+The application should open automatically in your default browser, otherwise open [http://localhost:3000](http://localhost:3000) in your browser.
 
 ## NOTE:
 
