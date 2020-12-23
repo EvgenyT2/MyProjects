@@ -1,0 +1,145 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>platformgame</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        body {
+            margin: 0;
+        }
+    </style>
+    <script src="../build/phaser.min.js"></script>
+</head>
+
+<body>
+
+    <script type="text/javascript">
+        var game = new Phaser.Game(1260, 630, Phaser.AUTO, 'Hammaskeijuseikkailu', { preload: preload, create: create, update: update });
+
+        function preload() {
+
+
+            //tässä ladataan tasotiedosto sekä tileset
+            game.load.tilemap('map', 'map3.csv');
+            game.load.image('tileset', 'tileset.png');
+            game.load.image('player', 'player.png');
+            
+            
+            game.load.spritesheet('otus', 'otus.png', 28, 32);
+        }
+
+        var map;
+        var sprite;
+        var layer;
+        var jumpButton;
+        var jumpTimer=10;
+        var otus, rightanim, leftanim;
+
+        function create() {
+            //taustan väri
+            game.stage.backgroundColor = "#4488AA";
+
+
+            
+
+
+            //otetaan csv-taso käyttöön ja määritetään yhden tilen kooksi 70x70 pikseliä
+            map = game.add.tilemap('map', 70, 70);
+            map.addTilesetImage('tileset');
+            layer = map.createLayer(0);
+            layer.resizeWorld();
+            //tässä asetetaan tileset.png tiedoston 54 ensimmäistä tileä "seinäksi" ja loput tilesetin kuvat ovat ainostaan taustaa
+             map.setCollisionBetween(1, 54);
+
+
+
+            //pelaajan alkusijainti
+            sprite = game.add.sprite(70, 200, 'otus');
+
+
+            //Hahmon animaatio
+            //https://phaser.io/examples/v2/animation/two-frame-test
+            rightanim = sprite.animations.add('rightanim', [1,2,3,4], 10, true);
+            leftanim = sprite.animations.add('leftanim', [5,6,7,8], 10, true);
+
+
+            //seuraavassa tasohyppelypelin alkuasetukset esim. painovoima
+            game.physics.enable(sprite);
+
+            sprite.body.bounce.set(0);
+            sprite.body.tilePadding.set(32);
+
+            game.camera.follow(sprite);
+
+            game.physics.arcade.gravity.y = 800;
+
+            //otetaan nuolinäppiämet käyttöön
+            cursors = game.input.keyboard.createCursorKeys();
+            
+            //päivitetty, hyppynappula on spacebar
+            jumpButton = game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
+
+        }
+
+        function update() {
+
+
+            game.physics.arcade.collide(sprite, layer);
+
+
+            //Tässä asetetaan nuolinäppäimiin toiminnot
+            if (jumpButton.isDown && sprite.body.onFloor() && game.time.now > jumpTimer) {
+                sprite.body.velocity.y = -500;
+                jumpTimer = game.time.now + 750;
+            }
+            else if (cursors.down.isDown) {
+                sprite.body.velocity.y = 150;
+            }
+
+            if (cursors.left.isDown) {
+                if(sprite.x>0){
+                    sprite.body.velocity.x = -300;
+                    //sprite.play('leftanim');
+                    }
+                else{
+                    sprite.x=0;
+                    sprite.body.velocity.x = 0;
+                }
+            }
+            else if (cursors.right.isDown) {
+                if(sprite.x<game.world.width-32){
+                    sprite.body.velocity.x = 300;
+                    sprite.play('rightanim');
+                    
+                }
+                else {
+                    sprite.body.velocity.x=0;
+                    sprite.x=game.world.width-32;
+                }
+                
+            }
+            else
+                {
+                    sprite.animations.stop();
+                }    
+
+            
+            
+            
+            
+            
+            if(cursors.left.isUp && cursors.right.isUp)
+                sprite.body.velocity.x = 0;
+
+        }
+        
+        
+        
+        //   https://phaser.io/examples/v2/tilemaps/create-from-objects
+        //   https://phaser.io/examples/v2/arcade-physics/one-way-collision
+    </script>
+</body>
+
+</html>

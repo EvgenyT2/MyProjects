@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<!-- HTML5 Hello world by kirupa - http://www.kirupa.com/html5/getting_your_feet_wet_html5_pg1.htm -->
+<html lang="en-us">
+
+<head>
+<meta charset="utf-8">
+<title>Hello...</title>
+<style type="text/css">
+#mainContent {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: xx-large;
+	font-weight: bold;
+	background-color: #E3F0FB;
+	border-radius: 4px;
+	padding: 10px;
+	text-align: center;
+}
+</style>
+</head>
+
+<body>
+<div id="mainContent">
+<p id="helloText"></p>
+</div>
+
+<script type="text/javascript" src="../phaser-ce/build/phaser.js"></script>
+
+<script>
+
+var game, Phaser;
+var backdrop;
+
+window.onload = function() {
+    
+    game = new Phaser.Game(1024,768,Phaser.AUTO, '', {preload:preload, create: create, update: update });
+    
+    function preload() {
+        loadAssets();
+    }
+    
+    function create() {    
+		game.stage.backgroundColor = '#2d2d2d';
+		backdrop = game.add.image(0, 0, 'demoimage');
+	}
+    
+    function update() {
+    }
+    
+    function loadAssets() {
+		game.load.image('demoimage', '../assets/demo-image.png');
+    }
+}    
+</script>
+
+<script> 
+var myText = document.getElementById("helloText");
+myText.textContent = "Random Generator!";
+</script>
+
+</body>
+</html>
