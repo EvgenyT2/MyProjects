@@ -1,0 +1,43 @@
+<!doctype html>
+<html>
+	<head>
+    		<script src="../phaser-ce/build/phaser.min.js"></script>
+    		<script src="js3/boot.js"></script>
+		<script src="js3/preload.js"></script>
+		<script src="js3/gametitle.js"></script>
+		<script src="js3/level1.js"></script>
+		<script src="js3/level2.js"></script>
+		<script src="js3/level3.js"></script>
+		<script src="js3/level4.js"></script>
+		<script src="js3/level5.js"></script>
+		<script src="js3/level6.js"></script>
+		<script src="js3/level7.js"></script>
+		<script src="js3/level8.js"></script>
+
+	
+    		<style>
+    			body{margin:0}
+    		</style>
+		<script>
+			(function() {
+				var game = new Phaser.Game(1260, 630, Phaser.CANVAS, "game");
+				game.state.add("Boot",boot);
+				game.state.add("Preload",preload);
+				game.state.add("GameTitle",gameTitle);
+				game.state.add("level1",level1);
+				game.state.add("level2",level2);
+				game.state.add("level3",level3);
+				game.state.add("level4",level4);
+				game.state.add("level5",level5);
+				game.state.add("level6",level6);
+				game.state.add("level7",level7);
+				game.state.add("level8",level8);
+
+
+				game.state.start("Boot");
+			})();    
+		</script>
+    </head>
+    <body>
+    </body>
+</html>
